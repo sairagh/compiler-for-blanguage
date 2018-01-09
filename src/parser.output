@@ -1,0 +1,1537 @@
+Terminals unused in grammar
+
+   ETOK
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: DEC '{' declaration_list '}' COD '{' statement_list '}'
+
+    2 declaration_list: decl declaration_list
+    3                 | decl
+
+    4 decl: INT LL SEMI
+
+    5 LL: id ',' LL
+    6   | id
+
+    7 id: IDENTIFIER
+    8   | IDENTIFIER '[' NUMBER ']'
+
+    9 statement_list: statement_list statement
+   10               | statement
+
+   11 statement: ass
+   12          | if
+   13          | for
+   14          | while
+   15          | lab
+   16          | goto
+   17          | read
+   18          | print
+   19          | println
+
+   20 println: PR1 AD ',' lf SEMI
+   21        | PR1 lf SEMI
+   22        | PR1 AD SEMI
+
+   23 goto: GOTO ab SEMI
+
+   24 ab: IDENTIFIER IF expr
+   25   | IDENTIFIER
+
+   26 read: READ lf SEMI
+
+   27 print: PRI AD ',' lf SEMI
+
+   28 lab: IDENTIFIER ':' statement
+
+   29 for: FOR IDENTIFIER '=' expr ',' expr bl
+   30    | FOR IDENTIFIER '=' expr ',' expr ',' expr bl
+
+   31 while: WHILE expr bl
+
+   32 ass: lf '=' expr SEMI
+
+   33 lf: IDENTIFIER
+   34   | IDENTIFIER '[' expr ']'
+
+   35 if: IF expr bl
+   36   | IF expr bl ELSE bl
+
+   37 bl: '{' statement_list '}'
+
+   38 expr: expr '+' expr
+   39     | expr '-' expr
+   40     | expr ARI expr
+   41     | expr CON expr
+   42     | expr REL expr
+   43     | expr NEQ expr
+   44     | expr EQ expr
+   45     | NO expr
+   46     | expr OR expr
+   47     | expr AND expr
+   48     | '(' expr ')'
+   49     | NUMBER
+   50     | lf
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 48
+')' (41) 48
+'+' (43) 38
+',' (44) 5 20 27 29 30
+'-' (45) 39
+':' (58) 28
+'=' (61) 29 30 32
+'[' (91) 8 34
+']' (93) 8 34
+'{' (123) 1 37
+'}' (125) 1 37
+error (256)
+NUMBER (258) 8 49
+IDENTIFIER (259) 7 8 24 25 28 29 30 33 34
+ETOK (260)
+AD (261) 20 22 27
+SEMI (262) 4 20 21 22 23 26 27 32
+INT (263) 4
+DEC (264) 1
+COD (265) 1
+PRI (266) 27
+IF (267) 24 35 36
+ELSE (268) 36
+EQ (269) 44
+NEQ (270) 43
+FOR (271) 29 30
+WHILE (272) 31
+PR1 (273) 20 21 22
+READ (274) 26
+NO (275) 45
+AND (276) 47
+OR (277) 46
+REL (278) 42
+CON (279) 41
+ARI (280) 40
+GOTO (281) 23
+
+
+Nonterminals, with rules where they appear
+
+$accept (38)
+    on left: 0
+program (39)
+    on left: 1, on right: 0
+declaration_list (40)
+    on left: 2 3, on right: 1 2
+decl (41)
+    on left: 4, on right: 2 3
+LL (42)
+    on left: 5 6, on right: 4 5
+id (43)
+    on left: 7 8, on right: 5 6
+statement_list (44)
+    on left: 9 10, on right: 1 9 37
+statement (45)
+    on left: 11 12 13 14 15 16 17 18 19, on right: 9 10 28
+println (46)
+    on left: 20 21 22, on right: 19
+goto (47)
+    on left: 23, on right: 16
+ab (48)
+    on left: 24 25, on right: 23
+read (49)
+    on left: 26, on right: 17
+print (50)
+    on left: 27, on right: 18
+lab (51)
+    on left: 28, on right: 15
+for (52)
+    on left: 29 30, on right: 13
+while (53)
+    on left: 31, on right: 14
+ass (54)
+    on left: 32, on right: 11
+lf (55)
+    on left: 33 34, on right: 20 21 26 27 32 50
+if (56)
+    on left: 35 36, on right: 12
+bl (57)
+    on left: 37, on right: 29 30 31 35 36
+expr (58)
+    on left: 38 39 40 41 42 43 44 45 46 47 48 49 50, on right: 24 29
+    30 31 32 34 35 36 38 39 40 41 42 43 44 45 46 47 48
+
+
+State 0
+
+    0 $accept: . program $end
+
+    DEC  shift, and go to state 1
+
+    program  go to state 2
+
+
+State 1
+
+    1 program: DEC . '{' declaration_list '}' COD '{' statement_list '}'
+
+    '{'  shift, and go to state 3
+
+
+State 2
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 program: DEC '{' . declaration_list '}' COD '{' statement_list '}'
+
+    INT  shift, and go to state 5
+
+    declaration_list  go to state 6
+    decl              go to state 7
+
+
+State 4
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 5
+
+    4 decl: INT . LL SEMI
+
+    IDENTIFIER  shift, and go to state 8
+
+    LL  go to state 9
+    id  go to state 10
+
+
+State 6
+
+    1 program: DEC '{' declaration_list . '}' COD '{' statement_list '}'
+
+    '}'  shift, and go to state 11
+
+
+State 7
+
+    2 declaration_list: decl . declaration_list
+    3                 | decl .
+
+    INT  shift, and go to state 5
+
+    $default  reduce using rule 3 (declaration_list)
+
+    declaration_list  go to state 12
+    decl              go to state 7
+
+
+State 8
+
+    7 id: IDENTIFIER .
+    8   | IDENTIFIER . '[' NUMBER ']'
+
+    '['  shift, and go to state 13
+
+    $default  reduce using rule 7 (id)
+
+
+State 9
+
+    4 decl: INT LL . SEMI
+
+    SEMI  shift, and go to state 14
+
+
+State 10
+
+    5 LL: id . ',' LL
+    6   | id .
+
+    ','  shift, and go to state 15
+
+    $default  reduce using rule 6 (LL)
+
+
+State 11
+
+    1 program: DEC '{' declaration_list '}' . COD '{' statement_list '}'
+
+    COD  shift, and go to state 16
+
+
+State 12
+
+    2 declaration_list: decl declaration_list .
+
+    $default  reduce using rule 2 (declaration_list)
+
+
+State 13
+
+    8 id: IDENTIFIER '[' . NUMBER ']'
+
+    NUMBER  shift, and go to state 17
+
+
+State 14
+
+    4 decl: INT LL SEMI .
+
+    $default  reduce using rule 4 (decl)
+
+
+State 15
+
+    5 LL: id ',' . LL
+
+    IDENTIFIER  shift, and go to state 8
+
+    LL  go to state 18
+    id  go to state 10
+
+
+State 16
+
+    1 program: DEC '{' declaration_list '}' COD . '{' statement_list '}'
+
+    '{'  shift, and go to state 19
+
+
+State 17
+
+    8 id: IDENTIFIER '[' NUMBER . ']'
+
+    ']'  shift, and go to state 20
+
+
+State 18
+
+    5 LL: id ',' LL .
+
+    $default  reduce using rule 5 (LL)
+
+
+State 19
+
+    1 program: DEC '{' declaration_list '}' COD '{' . statement_list '}'
+
+    IDENTIFIER  shift, and go to state 21
+    PRI         shift, and go to state 22
+    IF          shift, and go to state 23
+    FOR         shift, and go to state 24
+    WHILE       shift, and go to state 25
+    PR1         shift, and go to state 26
+    READ        shift, and go to state 27
+    GOTO        shift, and go to state 28
+
+    statement_list  go to state 29
+    statement       go to state 30
+    println         go to state 31
+    goto            go to state 32
+    read            go to state 33
+    print           go to state 34
+    lab             go to state 35
+    for             go to state 36
+    while           go to state 37
+    ass             go to state 38
+    lf              go to state 39
+    if              go to state 40
+
+
+State 20
+
+    8 id: IDENTIFIER '[' NUMBER ']' .
+
+    $default  reduce using rule 8 (id)
+
+
+State 21
+
+   28 lab: IDENTIFIER . ':' statement
+   33 lf: IDENTIFIER .
+   34   | IDENTIFIER . '[' expr ']'
+
+    '['  shift, and go to state 41
+    ':'  shift, and go to state 42
+
+    $default  reduce using rule 33 (lf)
+
+
+State 22
+
+   27 print: PRI . AD ',' lf SEMI
+
+    AD  shift, and go to state 43
+
+
+State 23
+
+   35 if: IF . expr bl
+   36   | IF . expr bl ELSE bl
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 49
+
+
+State 24
+
+   29 for: FOR . IDENTIFIER '=' expr ',' expr bl
+   30    | FOR . IDENTIFIER '=' expr ',' expr ',' expr bl
+
+    IDENTIFIER  shift, and go to state 50
+
+
+State 25
+
+   31 while: WHILE . expr bl
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 51
+
+
+State 26
+
+   20 println: PR1 . AD ',' lf SEMI
+   21        | PR1 . lf SEMI
+   22        | PR1 . AD SEMI
+
+    IDENTIFIER  shift, and go to state 45
+    AD          shift, and go to state 52
+
+    lf  go to state 53
+
+
+State 27
+
+   26 read: READ . lf SEMI
+
+    IDENTIFIER  shift, and go to state 45
+
+    lf  go to state 54
+
+
+State 28
+
+   23 goto: GOTO . ab SEMI
+
+    IDENTIFIER  shift, and go to state 55
+
+    ab  go to state 56
+
+
+State 29
+
+    1 program: DEC '{' declaration_list '}' COD '{' statement_list . '}'
+    9 statement_list: statement_list . statement
+
+    IDENTIFIER  shift, and go to state 21
+    PRI         shift, and go to state 22
+    IF          shift, and go to state 23
+    FOR         shift, and go to state 24
+    WHILE       shift, and go to state 25
+    PR1         shift, and go to state 26
+    READ        shift, and go to state 27
+    GOTO        shift, and go to state 28
+    '}'         shift, and go to state 57
+
+    statement  go to state 58
+    println    go to state 31
+    goto       go to state 32
+    read       go to state 33
+    print      go to state 34
+    lab        go to state 35
+    for        go to state 36
+    while      go to state 37
+    ass        go to state 38
+    lf         go to state 39
+    if         go to state 40
+
+
+State 30
+
+   10 statement_list: statement .
+
+    $default  reduce using rule 10 (statement_list)
+
+
+State 31
+
+   19 statement: println .
+
+    $default  reduce using rule 19 (statement)
+
+
+State 32
+
+   16 statement: goto .
+
+    $default  reduce using rule 16 (statement)
+
+
+State 33
+
+   17 statement: read .
+
+    $default  reduce using rule 17 (statement)
+
+
+State 34
+
+   18 statement: print .
+
+    $default  reduce using rule 18 (statement)
+
+
+State 35
+
+   15 statement: lab .
+
+    $default  reduce using rule 15 (statement)
+
+
+State 36
+
+   13 statement: for .
+
+    $default  reduce using rule 13 (statement)
+
+
+State 37
+
+   14 statement: while .
+
+    $default  reduce using rule 14 (statement)
+
+
+State 38
+
+   11 statement: ass .
+
+    $default  reduce using rule 11 (statement)
+
+
+State 39
+
+   32 ass: lf . '=' expr SEMI
+
+    '='  shift, and go to state 59
+
+
+State 40
+
+   12 statement: if .
+
+    $default  reduce using rule 12 (statement)
+
+
+State 41
+
+   34 lf: IDENTIFIER '[' . expr ']'
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 60
+
+
+State 42
+
+   28 lab: IDENTIFIER ':' . statement
+
+    IDENTIFIER  shift, and go to state 21
+    PRI         shift, and go to state 22
+    IF          shift, and go to state 23
+    FOR         shift, and go to state 24
+    WHILE       shift, and go to state 25
+    PR1         shift, and go to state 26
+    READ        shift, and go to state 27
+    GOTO        shift, and go to state 28
+
+    statement  go to state 61
+    println    go to state 31
+    goto       go to state 32
+    read       go to state 33
+    print      go to state 34
+    lab        go to state 35
+    for        go to state 36
+    while      go to state 37
+    ass        go to state 38
+    lf         go to state 39
+    if         go to state 40
+
+
+State 43
+
+   27 print: PRI AD . ',' lf SEMI
+
+    ','  shift, and go to state 62
+
+
+State 44
+
+   49 expr: NUMBER .
+
+    $default  reduce using rule 49 (expr)
+
+
+State 45
+
+   33 lf: IDENTIFIER .
+   34   | IDENTIFIER . '[' expr ']'
+
+    '['  shift, and go to state 41
+
+    $default  reduce using rule 33 (lf)
+
+
+State 46
+
+   45 expr: NO . expr
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 63
+
+
+State 47
+
+   48 expr: '(' . expr ')'
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 64
+
+
+State 48
+
+   50 expr: lf .
+
+    $default  reduce using rule 50 (expr)
+
+
+State 49
+
+   35 if: IF expr . bl
+   36   | IF expr . bl ELSE bl
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    EQ   shift, and go to state 65
+    NEQ  shift, and go to state 66
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+    REL  shift, and go to state 69
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+    '+'  shift, and go to state 72
+    '-'  shift, and go to state 73
+    '{'  shift, and go to state 74
+
+    bl  go to state 75
+
+
+State 50
+
+   29 for: FOR IDENTIFIER . '=' expr ',' expr bl
+   30    | FOR IDENTIFIER . '=' expr ',' expr ',' expr bl
+
+    '='  shift, and go to state 76
+
+
+State 51
+
+   31 while: WHILE expr . bl
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    EQ   shift, and go to state 65
+    NEQ  shift, and go to state 66
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+    REL  shift, and go to state 69
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+    '+'  shift, and go to state 72
+    '-'  shift, and go to state 73
+    '{'  shift, and go to state 74
+
+    bl  go to state 77
+
+
+State 52
+
+   20 println: PR1 AD . ',' lf SEMI
+   22        | PR1 AD . SEMI
+
+    SEMI  shift, and go to state 78
+    ','   shift, and go to state 79
+
+
+State 53
+
+   21 println: PR1 lf . SEMI
+
+    SEMI  shift, and go to state 80
+
+
+State 54
+
+   26 read: READ lf . SEMI
+
+    SEMI  shift, and go to state 81
+
+
+State 55
+
+   24 ab: IDENTIFIER . IF expr
+   25   | IDENTIFIER .
+
+    IF  shift, and go to state 82
+
+    $default  reduce using rule 25 (ab)
+
+
+State 56
+
+   23 goto: GOTO ab . SEMI
+
+    SEMI  shift, and go to state 83
+
+
+State 57
+
+    1 program: DEC '{' declaration_list '}' COD '{' statement_list '}' .
+
+    $default  reduce using rule 1 (program)
+
+
+State 58
+
+    9 statement_list: statement_list statement .
+
+    $default  reduce using rule 9 (statement_list)
+
+
+State 59
+
+   32 ass: lf '=' . expr SEMI
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 84
+
+
+State 60
+
+   34 lf: IDENTIFIER '[' expr . ']'
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    EQ   shift, and go to state 65
+    NEQ  shift, and go to state 66
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+    REL  shift, and go to state 69
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+    '+'  shift, and go to state 72
+    '-'  shift, and go to state 73
+    ']'  shift, and go to state 85
+
+
+State 61
+
+   28 lab: IDENTIFIER ':' statement .
+
+    $default  reduce using rule 28 (lab)
+
+
+State 62
+
+   27 print: PRI AD ',' . lf SEMI
+
+    IDENTIFIER  shift, and go to state 45
+
+    lf  go to state 86
+
+
+State 63
+
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   45     | NO expr .
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    $default  reduce using rule 45 (expr)
+
+
+State 64
+
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+   48     | '(' expr . ')'
+
+    EQ   shift, and go to state 65
+    NEQ  shift, and go to state 66
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+    REL  shift, and go to state 69
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+    '+'  shift, and go to state 72
+    '-'  shift, and go to state 73
+    ')'  shift, and go to state 87
+
+
+State 65
+
+   44 expr: expr EQ . expr
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 88
+
+
+State 66
+
+   43 expr: expr NEQ . expr
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 89
+
+
+State 67
+
+   47 expr: expr AND . expr
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 90
+
+
+State 68
+
+   46 expr: expr OR . expr
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 91
+
+
+State 69
+
+   42 expr: expr REL . expr
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 92
+
+
+State 70
+
+   41 expr: expr CON . expr
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 93
+
+
+State 71
+
+   40 expr: expr ARI . expr
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 94
+
+
+State 72
+
+   38 expr: expr '+' . expr
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 95
+
+
+State 73
+
+   39 expr: expr '-' . expr
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 96
+
+
+State 74
+
+   37 bl: '{' . statement_list '}'
+
+    IDENTIFIER  shift, and go to state 21
+    PRI         shift, and go to state 22
+    IF          shift, and go to state 23
+    FOR         shift, and go to state 24
+    WHILE       shift, and go to state 25
+    PR1         shift, and go to state 26
+    READ        shift, and go to state 27
+    GOTO        shift, and go to state 28
+
+    statement_list  go to state 97
+    statement       go to state 30
+    println         go to state 31
+    goto            go to state 32
+    read            go to state 33
+    print           go to state 34
+    lab             go to state 35
+    for             go to state 36
+    while           go to state 37
+    ass             go to state 38
+    lf              go to state 39
+    if              go to state 40
+
+
+State 75
+
+   35 if: IF expr bl .
+   36   | IF expr bl . ELSE bl
+
+    ELSE  shift, and go to state 98
+
+    $default  reduce using rule 35 (if)
+
+
+State 76
+
+   29 for: FOR IDENTIFIER '=' . expr ',' expr bl
+   30    | FOR IDENTIFIER '=' . expr ',' expr ',' expr bl
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 99
+
+
+State 77
+
+   31 while: WHILE expr bl .
+
+    $default  reduce using rule 31 (while)
+
+
+State 78
+
+   22 println: PR1 AD SEMI .
+
+    $default  reduce using rule 22 (println)
+
+
+State 79
+
+   20 println: PR1 AD ',' . lf SEMI
+
+    IDENTIFIER  shift, and go to state 45
+
+    lf  go to state 100
+
+
+State 80
+
+   21 println: PR1 lf SEMI .
+
+    $default  reduce using rule 21 (println)
+
+
+State 81
+
+   26 read: READ lf SEMI .
+
+    $default  reduce using rule 26 (read)
+
+
+State 82
+
+   24 ab: IDENTIFIER IF . expr
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 101
+
+
+State 83
+
+   23 goto: GOTO ab SEMI .
+
+    $default  reduce using rule 23 (goto)
+
+
+State 84
+
+   32 ass: lf '=' expr . SEMI
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    SEMI  shift, and go to state 102
+    EQ    shift, and go to state 65
+    NEQ   shift, and go to state 66
+    AND   shift, and go to state 67
+    OR    shift, and go to state 68
+    REL   shift, and go to state 69
+    CON   shift, and go to state 70
+    ARI   shift, and go to state 71
+    '+'   shift, and go to state 72
+    '-'   shift, and go to state 73
+
+
+State 85
+
+   34 lf: IDENTIFIER '[' expr ']' .
+
+    $default  reduce using rule 34 (lf)
+
+
+State 86
+
+   27 print: PRI AD ',' lf . SEMI
+
+    SEMI  shift, and go to state 103
+
+
+State 87
+
+   48 expr: '(' expr ')' .
+
+    $default  reduce using rule 48 (expr)
+
+
+State 88
+
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   44     | expr EQ expr .
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+    REL  shift, and go to state 69
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+    '+'  shift, and go to state 72
+    '-'  shift, and go to state 73
+
+    $default  reduce using rule 44 (expr)
+
+
+State 89
+
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   43     | expr NEQ expr .
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+    REL  shift, and go to state 69
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+    '+'  shift, and go to state 72
+    '-'  shift, and go to state 73
+
+    $default  reduce using rule 43 (expr)
+
+
+State 90
+
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+   47     | expr AND expr .
+
+    REL  shift, and go to state 69
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+    '+'  shift, and go to state 72
+    '-'  shift, and go to state 73
+
+    $default  reduce using rule 47 (expr)
+
+
+State 91
+
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   46     | expr OR expr .
+   47     | expr . AND expr
+
+    REL  shift, and go to state 69
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+    '+'  shift, and go to state 72
+    '-'  shift, and go to state 73
+
+    $default  reduce using rule 46 (expr)
+
+
+State 92
+
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   42     | expr REL expr .
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+    '+'  shift, and go to state 72
+    '-'  shift, and go to state 73
+
+    $default  reduce using rule 42 (expr)
+
+
+State 93
+
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   41     | expr CON expr .
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    $default  reduce using rule 41 (expr)
+
+
+State 94
+
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   40     | expr ARI expr .
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    CON  shift, and go to state 70
+
+    $default  reduce using rule 40 (expr)
+
+
+State 95
+
+   38 expr: expr . '+' expr
+   38     | expr '+' expr .
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+
+    $default  reduce using rule 38 (expr)
+
+
+State 96
+
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   39     | expr '-' expr .
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+
+    $default  reduce using rule 39 (expr)
+
+
+State 97
+
+    9 statement_list: statement_list . statement
+   37 bl: '{' statement_list . '}'
+
+    IDENTIFIER  shift, and go to state 21
+    PRI         shift, and go to state 22
+    IF          shift, and go to state 23
+    FOR         shift, and go to state 24
+    WHILE       shift, and go to state 25
+    PR1         shift, and go to state 26
+    READ        shift, and go to state 27
+    GOTO        shift, and go to state 28
+    '}'         shift, and go to state 104
+
+    statement  go to state 58
+    println    go to state 31
+    goto       go to state 32
+    read       go to state 33
+    print      go to state 34
+    lab        go to state 35
+    for        go to state 36
+    while      go to state 37
+    ass        go to state 38
+    lf         go to state 39
+    if         go to state 40
+
+
+State 98
+
+   36 if: IF expr bl ELSE . bl
+
+    '{'  shift, and go to state 74
+
+    bl  go to state 105
+
+
+State 99
+
+   29 for: FOR IDENTIFIER '=' expr . ',' expr bl
+   30    | FOR IDENTIFIER '=' expr . ',' expr ',' expr bl
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    EQ   shift, and go to state 65
+    NEQ  shift, and go to state 66
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+    REL  shift, and go to state 69
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+    '+'  shift, and go to state 72
+    '-'  shift, and go to state 73
+    ','  shift, and go to state 106
+
+
+State 100
+
+   20 println: PR1 AD ',' lf . SEMI
+
+    SEMI  shift, and go to state 107
+
+
+State 101
+
+   24 ab: IDENTIFIER IF expr .
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    EQ   shift, and go to state 65
+    NEQ  shift, and go to state 66
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+    REL  shift, and go to state 69
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+    '+'  shift, and go to state 72
+    '-'  shift, and go to state 73
+
+    $default  reduce using rule 24 (ab)
+
+
+State 102
+
+   32 ass: lf '=' expr SEMI .
+
+    $default  reduce using rule 32 (ass)
+
+
+State 103
+
+   27 print: PRI AD ',' lf SEMI .
+
+    $default  reduce using rule 27 (print)
+
+
+State 104
+
+   37 bl: '{' statement_list '}' .
+
+    $default  reduce using rule 37 (bl)
+
+
+State 105
+
+   36 if: IF expr bl ELSE bl .
+
+    $default  reduce using rule 36 (if)
+
+
+State 106
+
+   29 for: FOR IDENTIFIER '=' expr ',' . expr bl
+   30    | FOR IDENTIFIER '=' expr ',' . expr ',' expr bl
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 108
+
+
+State 107
+
+   20 println: PR1 AD ',' lf SEMI .
+
+    $default  reduce using rule 20 (println)
+
+
+State 108
+
+   29 for: FOR IDENTIFIER '=' expr ',' expr . bl
+   30    | FOR IDENTIFIER '=' expr ',' expr . ',' expr bl
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    EQ   shift, and go to state 65
+    NEQ  shift, and go to state 66
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+    REL  shift, and go to state 69
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+    '+'  shift, and go to state 72
+    '-'  shift, and go to state 73
+    '{'  shift, and go to state 74
+    ','  shift, and go to state 109
+
+    bl  go to state 110
+
+
+State 109
+
+   30 for: FOR IDENTIFIER '=' expr ',' expr ',' . expr bl
+
+    NUMBER      shift, and go to state 44
+    IDENTIFIER  shift, and go to state 45
+    NO          shift, and go to state 46
+    '('         shift, and go to state 47
+
+    lf    go to state 48
+    expr  go to state 111
+
+
+State 110
+
+   29 for: FOR IDENTIFIER '=' expr ',' expr bl .
+
+    $default  reduce using rule 29 (for)
+
+
+State 111
+
+   30 for: FOR IDENTIFIER '=' expr ',' expr ',' expr . bl
+   38 expr: expr . '+' expr
+   39     | expr . '-' expr
+   40     | expr . ARI expr
+   41     | expr . CON expr
+   42     | expr . REL expr
+   43     | expr . NEQ expr
+   44     | expr . EQ expr
+   46     | expr . OR expr
+   47     | expr . AND expr
+
+    EQ   shift, and go to state 65
+    NEQ  shift, and go to state 66
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+    REL  shift, and go to state 69
+    CON  shift, and go to state 70
+    ARI  shift, and go to state 71
+    '+'  shift, and go to state 72
+    '-'  shift, and go to state 73
+    '{'  shift, and go to state 74
+
+    bl  go to state 112
+
+
+State 112
+
+   30 for: FOR IDENTIFIER '=' expr ',' expr ',' expr bl .
+
+    $default  reduce using rule 30 (for)
